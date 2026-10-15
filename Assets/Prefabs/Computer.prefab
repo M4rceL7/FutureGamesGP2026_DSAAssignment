@@ -52,6 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5592b25c44429b914438d9e820ae26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Computer
+  taskQueue:
+    queue:
+    - {fileID: 11400000, guid: ff03f0eefaebe9e40aa1e0d120fb14ac, type: 2}
+    - {fileID: 11400000, guid: 457571fe0713d9d42abeff8ada485e7c, type: 2}
+    - {fileID: 11400000, guid: 4cad0c53d2ce7a64fb716f97e833d7f0, type: 2}
 --- !u!1001 &1440861543908505829
 PrefabInstance:
   m_ObjectHideFlags: 0
