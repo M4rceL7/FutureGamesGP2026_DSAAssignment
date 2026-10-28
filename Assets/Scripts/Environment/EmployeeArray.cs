@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public static class EmployeeArray
+public class EmployeeArray
 {
-    public static EmployeeData.Employee[] TempEmployees { get; set; }
+    public static EmployeeArray Instance { get; private set; }
 
-    public static EmployeeData.Employee[] savedEmployees { get; set; }
+    public EmployeeData.Employee[] TempEmployees { get; set; }
+
+    public EmployeeData.Employee[] savedEmployees { get; set; }
 }

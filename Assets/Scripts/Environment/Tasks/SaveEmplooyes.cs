@@ -6,9 +6,9 @@ namespace Environment.Tasks {
     public class SaveEmplooyes : Task{
         
         public override void Execute() {
-            EmployeeArray.savedEmployees = (EmployeeData.Employee[])EmployeeArray.TempEmployees.Clone();
+            EmployeeArray.Instance.savedEmployees = (EmployeeData.Employee[])EmployeeArray.Instance.TempEmployees.Clone();
 
-            foreach(var employee in EmployeeArray.savedEmployees) {
+            foreach(var employee in EmployeeArray.Instance.savedEmployees) {
                 Debug.Log($"Name: {employee.name}");
                 Debug.Log($"ID: {employee.employeeId}");
                 Debug.Log($"Has Clearance: {employee.hasEngineRoomClearance}");

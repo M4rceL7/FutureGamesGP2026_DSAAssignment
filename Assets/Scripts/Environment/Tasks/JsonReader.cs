@@ -10,7 +10,7 @@ namespace Environment.Tasks {
         public override void Execute() {
             EmployeeData data = JsonConvert.DeserializeObject<EmployeeData>(jsonFile.text);
 
-            EmployeeArray.TempEmployees = data.employees;
+            EmployeeArray.Instance.TempEmployees = data.employees;
         }
     }
 }
