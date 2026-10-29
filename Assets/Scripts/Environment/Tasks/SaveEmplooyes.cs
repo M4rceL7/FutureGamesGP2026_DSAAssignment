@@ -7,14 +7,6 @@ namespace Environment.Tasks {
         
         public override void Execute() {
             EmployeeArray.Instance.savedEmployees = (EmployeeData.Employee[])EmployeeArray.Instance.TempEmployees.Clone();
-
-            foreach(var employee in EmployeeArray.Instance.savedEmployees) {
-                Debug.Log($"Name: {employee.name}");
-                Debug.Log($"ID: {employee.employeeId}");
-                Debug.Log($"Has Clearance: {employee.hasEngineRoomClearance}");
-                Debug.Log($"Last Entrance: {employee.lastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-                Debug.Log($"Last Exit: {employee.lastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-            }
         }
     }
 }
