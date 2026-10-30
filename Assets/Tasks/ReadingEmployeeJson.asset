@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220e4f8f91b352f41abdd0d48d7efa63, type: 3}
   m_Name: ReadingEmployeeJson
   m_EditorClassIdentifier: Assembly-CSharp::Environment.Tasks.JsonReader
-  jsonFile: {fileID: 4900000, guid: dfc6b0a35a8637a4fa3ff416a7bfb9e2, type: 3}
+  jsonFile: {fileID: 4900000, guid: 08e3e60f5bd24f3429416cb13cd2ea18, type: 3}

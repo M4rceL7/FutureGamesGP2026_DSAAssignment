@@ -38,7 +38,7 @@ namespace Utility {
             int rIndex = 0;
 
             while(lIndex < L.Length && rIndex < R.Length) {
-                if(comparer.Compare(L[lIndex], R[rIndex]) >= 0) {
+                if(comparer.Compare(L[lIndex], R[rIndex]) <= 0) {
                     MergedArray[k++] = L[lIndex++];
                 }
                 else {

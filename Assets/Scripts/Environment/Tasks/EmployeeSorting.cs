@@ -13,17 +13,17 @@ namespace Environment.Tasks {
                 if(a == null) return 1;
                 if(b == null) return -1;
 
-                return a.lastEntranceInEngineRoom.CompareTo(b.lastEntranceInEngineRoom);
+                return a.LastEntranceInEngineRoom.CompareTo(b.LastEntranceInEngineRoom);
             });
 
             EmployeeArray.Instance.savedEmployees = Utility.MergeSort<EmployeeData.Employee>.Sort(EmployeeArray.Instance.savedEmployees, comparer);
 
             foreach(var employee in EmployeeArray.Instance.savedEmployees) {
-                Debug.Log($"Name: {employee.name}");
-                Debug.Log($"ID: {employee.employeeId}");
-                Debug.Log($"Has Clearance: {employee.hasEngineRoomClearance}");
-                Debug.Log($"Last Entrance: {employee.lastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-                Debug.Log($"Last Exit: {employee.lastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                //Debug.Log($"Name: {employee.Name}");
+                //Debug.Log($"ID: {employee.EmployeeId}");
+                //Debug.Log($"Has Clearance: {employee.HasEngineRoomClearance}");
+                Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                //Debug.Log($"Last Exit: {employee.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
             }
         }
     }

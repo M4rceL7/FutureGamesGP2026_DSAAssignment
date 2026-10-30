@@ -7,11 +7,11 @@ public class EmployeeData{
 
     [System.Serializable]
     public class Employee {
-        public string name;
-        public int employeeId;
-        public bool hasEngineRoomClearance;
-        public DateTime lastEntranceInEngineRoom;
-        public DateTime lastExitFromEngineRoom;
+        public string Name;
+        public int EmployeeId;
+        public bool HasEngineRoomClearance;
+        public DateTime LastEntranceInEngineRoom;
+        public DateTime LastExitFromEngineRoom;
     }
 
     public Employee[] employees;
