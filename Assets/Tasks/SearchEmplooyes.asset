@@ -15,8 +15,8 @@ MonoBehaviour:
   startDate:
     year: 2234
     month: 8
-    day: 9
+    day: 5
   endDate:
-    year: 1
-    month: 1
-    day: 1
+    year: 2234
+    month: 8
+    day: 7

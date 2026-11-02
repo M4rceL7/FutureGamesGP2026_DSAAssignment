@@ -6,6 +6,8 @@ namespace Environment.Tasks {
     [CreateAssetMenu(fileName = "SortEmplooyes Task", menuName = "SortEmplooyes Task")]
     public class EmployeeSorting : Task {
 
+        public bool showSortedArray = false;
+
         public override void Execute() {
             IComparer<EmployeeData.Employee> comparer = Comparer<EmployeeData.Employee>.Create((a, b) => {
 
@@ -17,14 +19,16 @@ namespace Environment.Tasks {
             });
 
             EmployeeArray.Instance.savedEmployees = Utility.MergeSort<EmployeeData.Employee>.Sort(EmployeeArray.Instance.savedEmployees, comparer);
-
-            foreach(var employee in EmployeeArray.Instance.savedEmployees) {
-                //Debug.Log($"Name: {employee.Name}");
-                //Debug.Log($"ID: {employee.EmployeeId}");
-                //Debug.Log($"Has Clearance: {employee.HasEngineRoomClearance}");
-                Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-                //Debug.Log($"Last Exit: {employee.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+            if(showSortedArray) {
+                foreach(var employee in EmployeeArray.Instance.savedEmployees) {
+                    //Debug.Log($"Name: {employee.Name}");
+                    //Debug.Log($"ID: {employee.EmployeeId}");
+                    //Debug.Log($"Has Clearance: {employee.HasEngineRoomClearance}");
+                    Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                    //Debug.Log($"Last Exit: {employee.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                }
             }
+            
         }
     }
 }
