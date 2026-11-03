@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EmployeeArray
@@ -6,7 +7,7 @@ public class EmployeeArray
 
     public EmployeeData.Employee[] TempEmployees { get; set; }
 
-    public EmployeeData.Employee[] savedEmployees { get; set; }
+    public EmployeeData.Employee[] savedEmployeesBS { get; set; }
 
-    private EmployeeArray() { }
+    public List<EmployeeData.Employee>[] savedEmployeesHM { get; set; }
 }

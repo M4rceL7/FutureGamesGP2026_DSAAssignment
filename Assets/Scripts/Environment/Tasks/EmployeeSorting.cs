@@ -6,9 +6,19 @@ namespace Environment.Tasks {
     [CreateAssetMenu(fileName = "SortEmplooyes Task", menuName = "SortEmplooyes Task")]
     public class EmployeeSorting : Task {
 
+        [System.Serializable]
+        public enum SortType {
+            BinarySearch,
+            QuickSort
+        }
+
+        public SortType sortType;
         public bool showSortedArray = false;
 
         public override void Execute() {
+            if(SortingUsed.dataStructureUsed == WhereToSave.HashMap)
+                return;
+
             IComparer<EmployeeData.Employee> comparer = Comparer<EmployeeData.Employee>.Create((a, b) => {
 
                 if(a == null && b == null) return 0;
@@ -18,17 +28,23 @@ namespace Environment.Tasks {
                 return a.LastEntranceInEngineRoom.CompareTo(b.LastEntranceInEngineRoom);
             });
 
-            EmployeeArray.Instance.savedEmployees = Utility.MergeSort<EmployeeData.Employee>.Sort(EmployeeArray.Instance.savedEmployees, comparer);
-            if(showSortedArray) {
-                foreach(var employee in EmployeeArray.Instance.savedEmployees) {
-                    //Debug.Log($"Name: {employee.Name}");
-                    //Debug.Log($"ID: {employee.EmployeeId}");
-                    //Debug.Log($"Has Clearance: {employee.HasEngineRoomClearance}");
-                    Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-                    //Debug.Log($"Last Exit: {employee.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-                }
-            }
-            
+            switch(sortType) {
+                case SortType.BinarySearch:
+                    EmployeeArray.Instance.savedEmployeesBS = Utility.MergeSort<EmployeeData.Employee>.Sort(EmployeeArray.Instance.savedEmployeesBS, comparer);
+                    if(showSortedArray) {
+                        foreach(var employee in EmployeeArray.Instance.savedEmployeesBS) {
+                            //Debug.Log($"Name: {employee.Name}");
+                            //Debug.Log($"ID: {employee.EmployeeId}");
+                            //Debug.Log($"Has Clearance: {employee.HasEngineRoomClearance}");
+                            Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                            //Debug.Log($"Last Exit: {employee.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                        }
+                    }
+                    break;
+
+                case SortType.QuickSort:
+                    break;
+            } 
         }
     }
 }

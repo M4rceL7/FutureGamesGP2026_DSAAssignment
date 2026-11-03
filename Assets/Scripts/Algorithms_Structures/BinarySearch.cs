@@ -7,6 +7,9 @@ namespace Utility {
         public static List<T> binarySearch<T, U>(T[] inArray, U start, U end, Func<T, U> getValue)
             where U : IComparable<U>
         {
+            if(inArray.Length == 0)
+                return null;
+
             int low = 0;
             int high = inArray.Length;
             int median;
@@ -47,6 +50,9 @@ namespace Utility {
             //where T : class //Contraint if i want to return null.
             where U :IComparable<U>
             {
+            if(inArray.Length == 0)
+                return -1;
+
             int low = 0;
             int high = inArray.Length - 1;
             int median;

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a628ea9ab36764740903945100f8666b, type: 3}
   m_Name: SaveEmplooyes
   m_EditorClassIdentifier: Assembly-CSharp::Environment.Tasks.SaveEmplooyes
+  saveOptions: 1
