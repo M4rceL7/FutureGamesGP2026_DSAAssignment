@@ -44,6 +44,10 @@ namespace Utility {
             return inHash[hash];
         }
 
+        //public static List<EmployeeData.Employee> get(List<EmployeeData.Employee>[] inHash, DateTime start, DateTime end) {
+
+        //}
+
         private static int getNextPrime(int number) {
             number = Math.Max(number, 2);
 
