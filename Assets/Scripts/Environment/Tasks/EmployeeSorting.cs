@@ -9,7 +9,7 @@ namespace Environment.Tasks {
 
         [System.Serializable]
         public enum SortType {
-            BinarySearch,
+            MergeSort,
             QuickSort
         }
 
@@ -30,7 +30,7 @@ namespace Environment.Tasks {
             });
 
             switch(sortType) {
-                case SortType.BinarySearch:
+                case SortType.MergeSort:
                     EmployeeArray.Instance.savedEmployeesBS = Utility.MergeSort<EmployeeData.Employee>.Sort(EmployeeArray.Instance.savedEmployeesBS, comparer);
                     if(showSortedArray) {
                         foreach(var employee in EmployeeArray.Instance.savedEmployeesBS) {

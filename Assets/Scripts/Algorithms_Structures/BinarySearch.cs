@@ -18,7 +18,7 @@ namespace Utility {
             while(low < high) {
                 median = low + (high - low) / 2;
 
-                if(getValue(inArray[median]).CompareTo(start) <= 0) {
+                if(getValue(inArray[median]).CompareTo(start) < 0) {
                     low = median + 1;
                 }else {
                     high = median;

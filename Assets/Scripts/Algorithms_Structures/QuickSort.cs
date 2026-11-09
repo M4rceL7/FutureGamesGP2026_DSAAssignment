@@ -4,19 +4,29 @@ using UnityEngine;
 namespace Utility {
     public class QuickSort {
 
-        public static void Sort(EmployeeData.Employee[] inArray, int low = 0, int high = 0) {
-            if(high == 0) {
-                high = inArray.Length - 1;
+        public static void Sort(EmployeeData.Employee[] inArray) {
+            if(inArray == null) {
+                throw new ArgumentNullException(nameof(inArray));
             }
 
+            QuickSortRecursive(inArray, 0, inArray.Length - 1);
+        }
+
+        private static void QuickSortRecursive(EmployeeData.Employee[] inArray, int low, int high) {
             if(low < high) {
                 int pivotIndex = Partition(inArray, low, high);
-                Sort(inArray, low, pivotIndex-1);
-                Sort(inArray, pivotIndex + 1, high);
+                QuickSortRecursive(inArray, low, pivotIndex - 1);
+                QuickSortRecursive(inArray, pivotIndex + 1, high);
             }
         }
 
         private static int Partition(EmployeeData.Employee[] inArray, int low, int high) {
+            int randomIndex = UnityEngine.Random.Range(low, high + 1);
+
+            EmployeeData.Employee tempRandom = inArray[randomIndex];
+            inArray[randomIndex] = inArray[high];
+            inArray[high] = tempRandom;
+
             EmployeeData.Employee pivot = inArray[high];
             int i = low - 1;
 
