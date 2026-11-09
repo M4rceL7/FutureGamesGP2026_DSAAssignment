@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Utility {
     public class HashMap {
+        public const uint OffsetBasis32 = 2166136261;
+        public const uint Prime32 = 16777619;
+        public const ulong OffsetBasis64 = 14695981039346656037;
+        public const ulong Prime64 = 1099511628211;
 
         public static List<EmployeeData.Employee>[] savingToHashMap(EmployeeData.Employee[] inArray) {
             if(inArray == null)
@@ -20,7 +24,8 @@ namespace Utility {
             for(int i = 0; i < inArray.Length; i++) {
                 DateTime date = inArray[i].LastEntranceInEngineRoom.Date;
 
-                int hash = computeHash(date.GetHashCode(), hashMap.Length);
+                //int hash = computeHashModulo(date.GetHashCode(), hashMap.Length);
+                int hash = (int)(computeHashPrime(date) % (uint)hashMap.Length);
 
                 hashMap[hash].Add(inArray[i]);
             }
@@ -28,18 +33,33 @@ namespace Utility {
             return hashMap;
         }
 
-        private static int computeHash(int valueToHash, int hashMapLength) {
+        //Hash Functions ------------------------------------------------------------------------------------------------------------------------------------
+        private static int computeHashModulo(int valueToHash, int hashMapLength) {
             if(hashMapLength <= 0)
                 throw new ArgumentOutOfRangeException(nameof(hashMapLength));
 
             return (int)((uint)valueToHash % (uint)hashMapLength);
         }
 
+        private static uint computeHashPrime(DateTime valueToHash) {
+            Span<byte> bytes = stackalloc byte[sizeof(long)];
+
+            BitConverter.TryWriteBytes(bytes, valueToHash.Ticks);
+
+            uint hash = OffsetBasis32;
+            foreach (byte b in bytes) {
+                hash ^= b;
+                hash = unchecked(hash * Prime32);
+            }
+            return hash;
+        }
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
         public static List<EmployeeData.Employee> get(List<EmployeeData.Employee>[] inHash, DateTime value) {
             if(inHash == null || inHash.Length <= 0)
                 throw new ArgumentNullException(nameof(inHash));
 
-            int hash = computeHash(value.Date.GetHashCode(), inHash.Length);
+            //int hash = computeHashModulo(value.Date.GetHashCode(), inHash.Length);
+            int hash = (int)(computeHashPrime(value) % (uint)inHash.Length);
 
             return inHash[hash];
         }
