@@ -22,10 +22,10 @@ namespace Utility {
             }
 
             for(int i = 0; i < inArray.Length; i++) {
-                DateTime date = inArray[i].LastEntranceInEngineRoom.Date;
+                DateTime date = inArray[i].LastEntranceInEngineRoom;
 
                 //int hash = computeHashModulo(date.GetHashCode(), hashMap.Length);
-                int hash = (int)(computeHashPrime(date) % (uint)hashMap.Length);
+                int hash = (int)(computeHashFNV(date) % (uint)hashMap.Length);
 
                 hashMap[hash].Add(inArray[i]);
             }
@@ -41,7 +41,7 @@ namespace Utility {
             return (int)((uint)valueToHash % (uint)hashMapLength);
         }
 
-        private static uint computeHashPrime(DateTime valueToHash) {
+        private static uint computeHashFNV(DateTime valueToHash) {
             Span<byte> bytes = stackalloc byte[sizeof(long)];
 
             BitConverter.TryWriteBytes(bytes, valueToHash.Ticks);
@@ -59,14 +59,31 @@ namespace Utility {
                 throw new ArgumentNullException(nameof(inHash));
 
             //int hash = computeHashModulo(value.Date.GetHashCode(), inHash.Length);
-            int hash = (int)(computeHashPrime(value) % (uint)inHash.Length);
+            int hash = (int)(computeHashFNV(value) % (uint)inHash.Length);
 
             return inHash[hash];
         }
 
-        //public static List<EmployeeData.Employee> get(List<EmployeeData.Employee>[] inHash, DateTime start, DateTime end) {
+        public static List<EmployeeData.Employee> get(List<EmployeeData.Employee>[] inHash, DateTime start, DateTime end) {
 
-        //}
+            if(inHash == null || inHash.Length == 0) throw new ArgumentException("Invalid HashMap.");
+
+            if(start > end) throw new ArgumentException("Start must be before end.");
+
+            List<EmployeeData.Employee> results = new List<EmployeeData.Employee>();
+
+            for(int i = 0; i < inHash.Length; i++) {
+                foreach(EmployeeData.Employee employee in inHash[i]) {
+                    DateTime current = employee.LastEntranceInEngineRoom;
+
+                    if(current >= start && current <= end) {
+                        results.Add(employee);
+                    }
+                }
+            }
+
+            return results;
+        }
 
         private static int getNextPrime(int number) {
             number = Math.Max(number, 2);

@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Utility;
 
 namespace Environment.Tasks {
     [CreateAssetMenu(fileName = "SortEmplooyes Task", menuName = "SortEmplooyes Task")]
@@ -37,20 +35,20 @@ namespace Environment.Tasks {
                             //Debug.Log($"Name: {employee.Name}");
                             //Debug.Log($"ID: {employee.EmployeeId}");
                             //Debug.Log($"Has Clearance: {employee.HasEngineRoomClearance}");
-                            Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                            //Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
                             //Debug.Log($"Last Exit: {employee.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
                         }
                     }
                     break;
 
                 case SortType.QuickSort:
-                    QuickSort.Sort(EmployeeArray.Instance.TempEmployees);
-                    EmployeeArray.Instance.savedEmployeesBS = EmployeeArray.Instance.TempEmployees;
+                    Utility.QuickSort.Sort(EmployeeArray.Instance.TempEmployees);
+                    EmployeeArray.Instance.savedEmployeesBS = (EmployeeData.Employee[])EmployeeArray.Instance.TempEmployees.Clone();
                     foreach(var employee in EmployeeArray.Instance.savedEmployeesBS) {
                         //Debug.Log($"Name: {employee.Name}");
                         //Debug.Log($"ID: {employee.EmployeeId}");
                         //Debug.Log($"Has Clearance: {employee.HasEngineRoomClearance}");
-                        Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                        //Debug.Log($"Last Entrance: {employee.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
                         //Debug.Log($"Last Exit: {employee.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
                     }
                     break;

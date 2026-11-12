@@ -15,8 +15,14 @@ MonoBehaviour:
   startDate:
     year: 2234
     month: 8
-    day: 5
+    day: 9
+    hour: 22
+    minute: 0
+    second: 0
   endDate:
     year: 2234
     month: 8
-    day: 7
+    day: 9
+    hour: 23
+    minute: 0
+    second: 0

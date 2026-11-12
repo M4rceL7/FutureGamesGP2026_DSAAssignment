@@ -11,6 +11,9 @@ namespace Environment.Tasks {
             public int year = 1;
             public int month = 1;
             public int day = 1;
+            public int hour = 0;
+            public int minute = 0;
+            public int second = 0;
         }
 
         private WhereToSave searchIn;
@@ -24,46 +27,32 @@ namespace Environment.Tasks {
         public override void Execute() {
             searchIn = SortingUsed.dataStructureUsed;
 
-            DateTime start = new DateTime(startDate.year, startDate.month, startDate.day);
-            DateTime end = new(endDate.year, endDate.month, endDate.day);
+            DateTime start = new DateTime(startDate.year, startDate.month, startDate.day, startDate.hour, startDate.minute, startDate.second);
+            DateTime end = new DateTime(endDate.year, endDate.month, endDate.day, endDate.hour, endDate.minute, endDate.second);
 
             switch(searchIn) {
                 case WhereToSave.Array:
                     Debug.Log("Array Used");
-                    //int index = Utility.Benchmark.RunBenchmark(() =>
-                    //    Utility.BinarySearch.binarySearch(EmployeeArray.Instance.savedEmployees, start,
-                    //        employee => employee.LastEntranceInEngineRoom.Date));
-
-                    //if(index == -1) {
-                    //    Debug.Log("Could not find an employee with current search criteria");
-                    //}
-                    //else {
-                    //    Debug.Log("Employee found:");
-                    //    Debug.Log($"Name: {EmployeeArray.Instance.savedEmployees[index].Name}");
-                    //    Debug.Log($"ID: {EmployeeArray.Instance.savedEmployees[index].EmployeeId}");
-                    //    Debug.Log($"Has Clearance: {EmployeeArray.Instance.savedEmployees[index].HasEngineRoomClearance}");
-                    //    Debug.Log($"Last Entrance: {EmployeeArray.Instance.savedEmployees[index].LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-                    //    Debug.Log($"Last Exit: {EmployeeArray.Instance.savedEmployees[index].LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
-                    //}
-
                     allInRange = Utility.Benchmark.RunBenchmark(() =>
                         Utility.BinarySearch.binarySearch(EmployeeArray.Instance.savedEmployeesBS, start, end,
-                            employee => employee.LastEntranceInEngineRoom.Date));
+                            employee => employee.LastEntranceInEngineRoom));
 
                     foreach(EmployeeData.Employee emp in allInRange) {
                         Debug.Log("Employee found:");
                         Debug.Log($"Name: {emp.Name}");
                         Debug.Log($"Last Entrance: {emp.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                        Debug.Log($"Last Exit: {emp.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
                     }
                     break;
 
                 case WhereToSave.HashMap:
                     Debug.Log("HashMap Used");
-                    List<EmployeeData.Employee> targetsInRange = Utility.HashMap.get(EmployeeArray.Instance.savedEmployeesHM, start);
+                    List<EmployeeData.Employee> targetsInRange = Utility.Benchmark.RunBenchmark(() => Utility.HashMap.get(EmployeeArray.Instance.savedEmployeesHM, start, end)); 
                     foreach(EmployeeData.Employee emp in targetsInRange) {
                         Debug.Log("Employee found:");
                         Debug.Log($"Name: {emp.Name}");
                         Debug.Log($"Last Entrance: {emp.LastEntranceInEngineRoom:yyyy-MM-ddTHH:mm:ss}");
+                        Debug.Log($"Last Exit: {emp.LastExitFromEngineRoom:yyyy-MM-ddTHH:mm:ss}");
                     }
 
                     break;
