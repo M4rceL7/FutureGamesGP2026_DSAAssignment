@@ -6,6 +6,7 @@ namespace Environment.Tasks {
     public class SaveEmplooyes : Task{
 
         public WhereToSave saveOptions;
+        public HashingFunction hashingFunction;
 
         public override void Execute() {
 
@@ -18,6 +19,7 @@ namespace Environment.Tasks {
                     break;
 
                     case WhereToSave.HashMap:
+                    Utility.HashMap.SetHashingFunction(hashingFunction);
                     EmployeeArray.Instance.savedEmployeesHM = Utility.HashMap.savingToHashMap(EmployeeArray.Instance.TempEmployees);
                     Debug.Log("Execute HashMap");
                     break;

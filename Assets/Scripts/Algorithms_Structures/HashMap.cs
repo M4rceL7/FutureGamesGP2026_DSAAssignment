@@ -9,6 +9,8 @@ namespace Utility {
         public const ulong OffsetBasis64 = 14695981039346656037;
         public const ulong Prime64 = 1099511628211;
 
+        private static HashingFunction hashingFunction = HashingFunction.Modulo;
+
         public static List<EmployeeData.Employee>[] savingToHashMap(EmployeeData.Employee[] inArray) {
             if(inArray == null)
                 throw new ArgumentNullException(nameof(inArray));
@@ -23,9 +25,13 @@ namespace Utility {
 
             for(int i = 0; i < inArray.Length; i++) {
                 DateTime date = inArray[i].LastEntranceInEngineRoom;
-
-                //int hash = computeHashModulo(date.GetHashCode(), hashMap.Length);
-                int hash = (int)(computeHashFNV(date) % (uint)hashMap.Length);
+                int hash;
+                if(hashingFunction == HashingFunction.Modulo) {
+                    hash = computeHashModulo(date.GetHashCode(), hashMap.Length);
+                }
+                else {
+                    hash = (int)(computeHashFNV(date) % (uint)hashMap.Length);
+                }
 
                 hashMap[hash].Add(inArray[i]);
             }
@@ -54,13 +60,19 @@ namespace Utility {
             return hash;
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //Get Value------------------------------------------------------------------------------------------------------------------------------------------
         public static List<EmployeeData.Employee> get(List<EmployeeData.Employee>[] inHash, DateTime value) {
             if(inHash == null || inHash.Length <= 0)
                 throw new ArgumentNullException(nameof(inHash));
-
-            //int hash = computeHashModulo(value.Date.GetHashCode(), inHash.Length);
-            int hash = (int)(computeHashFNV(value) % (uint)inHash.Length);
-
+            int hash;
+            if(hashingFunction == HashingFunction.Modulo) {
+                hash = computeHashModulo(value.Date.GetHashCode(), inHash.Length);
+            }
+            else {
+                hash = (int)(computeHashFNV(value) % (uint)inHash.Length);
+            }
+     
             return inHash[hash];
         }
 
@@ -84,6 +96,7 @@ namespace Utility {
 
             return results;
         }
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
 
         private static int getNextPrime(int number) {
             number = Math.Max(number, 2);
@@ -103,6 +116,10 @@ namespace Utility {
 
                 number++;
             }
+        }
+
+        public static void SetHashingFunction(HashingFunction hashing) {
+            hashingFunction = hashing;
         }
     }
 }
